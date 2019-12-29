@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a6e801b916b7408ebdc35c3dfd8baeb5" Name="Diagram1">
+        <EntityTypeShape EntityType="WorkFlowDbModel.Leaf" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkFlowDbModel.Meeting" Width="1.5" PointX="6" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkFlowDbModel.PostComment" Width="1.5" PointX="7" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkFlowDbModel.PostLike" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkFlowDbModel.Post" Width="1.5" PointX="6" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkFlowDbModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorkFlowDbModel.Topic" Width="1.5" PointX="3.75" PointY="18" IsExpanded="true" />
+        <AssociationConnector Association="WorkFlowDbModel.FK_Meetings_Topics" ManuallyRouted="false" />
+        <AssociationConnector Association="WorkFlowDbModel.FK_PostComments_Posts" ManuallyRouted="false" />
+        <AssociationConnector Association="WorkFlowDbModel.FK_PostLikes_Posts" ManuallyRouted="false" />
+        <AssociationConnector Association="WorkFlowDbModel.FK_Posts_Topics" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="WorkFlowDbModel.webpages_Membership" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WorkFlowDbModel.webpages_OAuthMembership" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="WorkFlowDbModel.webpages_Roles" Width="1.5" PointX="1.125" PointY="8.25" />
+        <EntityTypeShape EntityType="WorkFlowDbModel.User" Width="1.5" PointX="3.375" PointY="21.375" />
+        <AssociationConnector Association="WorkFlowDbModel.FK_Leaves_Users" />
+        <AssociationConnector Association="WorkFlowDbModel.FK_Meetings_Users" />
+        <AssociationConnector Association="WorkFlowDbModel.FK_Comments_Users" />
+        <AssociationConnector Association="WorkFlowDbModel.FK_PostLikes_Users" />
+        <AssociationConnector Association="WorkFlowDbModel.FK_Posts_Users" />
+        <AssociationConnector Association="WorkFlowDbModel.webpages_UsersInRoles" />
+        <EntityTypeShape EntityType="WorkFlowDbModel.UsersDetail" Width="1.5" PointX="5.625" PointY="21.625" />
+        <AssociationConnector Association="WorkFlowDbModel.FK_UsersDetail_Users" />
+        <EntityTypeShape EntityType="WorkFlowDbModel.Paper" Width="1.5" PointX="5.625" PointY="25.875" />
+        <AssociationConnector Association="WorkFlowDbModel.FK_Paper_Users" />
+        <EntityTypeShape EntityType="WorkFlowDbModel.Project" Width="1.5" PointX="5.625" PointY="29.625" />
+        <EntityTypeShape EntityType="WorkFlowDbModel.ProjectTask" Width="1.5" PointX="7.875" PointY="25.5" />
+        <AssociationConnector Association="WorkFlowDbModel.FK_Project_Users" />
+        <AssociationConnector Association="WorkFlowDbModel.FK_ProjectTasks_Project" />
+        <AssociationConnector Association="WorkFlowDbModel.FK_ProjectTasks_Users" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

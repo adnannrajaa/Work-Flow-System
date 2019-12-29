@@ -1,0 +1,77 @@
+﻿@model IEnumerable<WorkFlowProject.Models.Account.ManageFaculty>
+@{
+    ViewBag.Title = "ManageFaculty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+  
+}
+
+@using (Html.BeginForm("Block", "Admin"))
+{
+    <div class="page-header row no-gutters py-4 mb-3 border-bottom">
+        <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+            <span class="text-uppercase page-subtitle">Users</span>
+            <h3 class="page-title">Manage Faculty</h3>
+        </div>
+    </div>
+    <!-- End Page Header -->
+    <div class="row">
+        <!-- Users Stats -->
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="card card-small">
+                <div class="card-header border-bottom">
+                    <h6 class="m-0">Users</h6>
+                </div>
+                <table class="table">
+                    <tr class="table-striped">
+                        <th>
+                            <label>Full Name</label>
+                        </th>
+                        <th>
+                            <label>User Name</label>
+                        </th>
+                        <th>
+                            <label>Email</label>
+                        </th>
+                        <th>
+                            <label>Mobile</label>
+                        </th>
+                        <th><label>Action</label></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Mobile)
+                            </td>
+                            <td>
+                                @if (item.Status == true)
+                                {
+                                    @Html.ActionLink("Block", "Block", new { id = item.UserId })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Unblock", "Block", new { id = item.UserId })
+                                }
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+        <!-- End Users Stats -->
+    </div>
+}
+
+
+

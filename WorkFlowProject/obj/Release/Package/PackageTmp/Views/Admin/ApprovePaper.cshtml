@@ -1,0 +1,92 @@
+﻿@model IEnumerable<WorkFlowProject.Models.Admin.PaperModel>
+
+@{
+    ViewBag.Title = "ApprovePaper";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header row no-gutters py-4 mb-3 border-bottom">
+    <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+        <span class="text-uppercase page-subtitle">Paper</span>
+        <h3 class="page-title">Approve Paper</h3>
+    </div>
+</div>
+<!-- End Page Header -->
+<div class="row">
+    <!-- Users Stats -->
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card card-small">
+            <div class="card-header border-bottom">
+                <h6 class="m-0">Users</h6>
+            </div>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PaperId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PaperStandard)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PaperSubject)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FilePath)
+                    </th>
+                    <th>
+                        <label>Download</label>
+                    </th>
+                    <th>
+                        <label>Approved</label>
+                    </th>
+                    <th>
+                        <label>Reject</label>
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PaperId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PaperStandard)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PaperSubject)
+                        </td>
+                        <td>
+                            <div class="blog-comments__avatar mr-3">
+                                <img src="~/AppFiles/Images/File-512.png" />
+                            </div>
+                        </td>
+                        <td>
+                            @Html.ActionLink("Download", "Download", new { FileID = item.PaperId })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Approve", "PaperApproved", new { id = item.PaperId })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Reject", "PaperReject", new { id = item.PaperId })
+                        </td>
+                    </tr>
+
+
+                }
+
+            </table>
+        </div>
+    </div>
+    <!-- End Users Stats -->
+
+</div>
+
+
+

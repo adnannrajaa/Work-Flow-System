@@ -1,0 +1,369 @@
+﻿@model WorkFlowProject.Models.Home.TotalLikesPostsCommentsModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<!-- Page Header -->
+<div class="page-header row no-gutters py-4">
+    <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+        <span class="text-uppercase page-subtitle">Dashboard</span>
+        <h3 class="page-title">Overview</h3>
+    </div>
+</div>
+<!-- End Page Header -->
+<!-- Small Stats Blocks -->
+<div class="row">
+    <div class="col-lg col-md-6 col-sm-6 mb-4">
+        <div class="stats-small stats-small--1 card card-small">
+            <div class="card-body p-0 d-flex">
+                <div class="d-flex flex-column m-auto">
+                    <div class="stats-small__data text-center">
+                        <span class="stats-small__label text-uppercase">Posts</span>
+                        <h6 class="stats-small__value count my-3">@ViewBag.TotalPosts</h6>
+                    </div>
+                    @*<div class="stats-small__data">
+                            <span class="stats-small__percentage stats-small__percentage--increase">4.7%</span>
+                        </div>*@
+                </div>
+                <canvas height="120" class="blog-overview-stats-small-1"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg col-md-6 col-sm-6 mb-4">
+        <div class="stats-small stats-small--1 card card-small">
+            <div class="card-body p-0 d-flex">
+                <div class="d-flex flex-column m-auto">
+                    <div class="stats-small__data text-center">
+                        <span class="stats-small__label text-uppercase">Likes</span>
+                        <h6 class="stats-small__value count my-3">@ViewBag.TotalLikes</h6>
+                    </div>
+                    @*<div class="stats-small__data">
+                            <span class="stats-small__percentage stats-small__percentage--increase">12.4%</span>
+                        </div>*@
+                </div>
+                <canvas height="120" class="blog-overview-stats-small-2"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg col-md-4 col-sm-6 mb-4">
+        <div class="stats-small stats-small--1 card card-small">
+            <div class="card-body p-0 d-flex">
+                <div class="d-flex flex-column m-auto">
+                    <div class="stats-small__data text-center">
+                        <span class="stats-small__label text-uppercase">Comments</span>
+                        <h6 class="stats-small__value count my-3">@ViewBag.TotalComments</h6>
+                    </div>
+                    @*<div class="stats-small__data">
+                            <span class="stats-small__percentage stats-small__percentage--decrease">3.8%</span>
+                        </div>*@
+                </div>
+                <canvas height="120" class="blog-overview-stats-small-3"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg col-md-4 col-sm-6 mb-4">
+        <div class="stats-small stats-small--1 card card-small">
+            <div class="card-body p-0 d-flex">
+                <div class="d-flex flex-column m-auto">
+                    <div class="stats-small__data text-center">
+                        <span class="stats-small__label text-uppercase">Users</span>
+                        <h6 class="stats-small__value count my-3">@ViewBag.TotalUsers</h6>
+                    </div>
+                    @*<div class="stats-small__data">
+                            <span class="stats-small__percentage stats-small__percentage--increase">12.4%</span>
+                        </div>*@
+                </div>
+                <canvas height="120" class="blog-overview-stats-small-4"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg col-md-4 col-sm-12 mb-4">
+        <div class="stats-small stats-small--1 card card-small">
+            <div class="card-body p-0 d-flex">
+                <div class="d-flex flex-column m-auto">
+                    <div class="stats-small__data text-center">
+                        <span class="stats-small__label text-uppercase">Projects</span>
+                        <h6 class="stats-small__value count my-3">@ViewBag.TotalCompletedProjects</h6>
+                    </div>
+                    @*<div class="stats-small__data">
+                        <span class="stats-small__percentage stats-small__percentage--decrease">2.4%</span>
+                    </div>*@
+                </div>
+                <canvas height="120" class="blog-overview-stats-small-5"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Small Stats Blocks -->
+<div class="row">
+    <!-- Users Stats -->
+    <div class="col-lg-8 col-md-12 col-sm-12 mb-4">
+        <div class="card card-small">
+            <div class="card-header border-bottom">
+                <h6 class="m-0">Users</h6>
+            </div>
+            <div class="card-body pt-0">
+                <div class="row border-bottom py-2 bg-light">
+                    <table class="table">
+                        <tr class="table-striped">
+                            <th><label>Image</label></th>
+                            <th>
+                                <label>User Name</label>
+                            </th>
+                            <th>
+                                <label>Full Name</label>
+                            </th>
+
+                            <th>
+                                <label>Email</label>
+                            </th>
+                            <th>
+                                <label>Mobile</label>
+                            </th>
+
+                        </tr>
+
+                        @foreach (var item in Model.ActiveUsers)
+                        {
+                        <tr>
+                            <td>
+                                <div class="blog-comments__avatar mr-3">
+                                    <img src="@Url.Content(item.ImagePath)" />
+                                </div>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Mobile)
+                            </td>
+
+                        </tr>
+                        }
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Users Stats -->
+    <!-- Users By Device Stats -->
+    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+        <div class="card card-small h-100">
+            <div class="card-header border-bottom">
+                <h6 class="m-0">Project Status</h6>
+            </div>
+            <div class="card-body d-flex py-0">
+                <table class="table">
+                    <tr>
+
+                        <th>
+                           <label>File</label>
+                        </th>
+                        <th>
+                           <label>Manager</label>
+                        </th>
+
+                        <th>
+                           <label>Status</label>
+                        </th>
+                       
+                    </tr>
+
+                    @foreach (var item in Model.ProjectModel)
+                    {
+                        <tr>
+
+                            <td>
+                                <div title="Download" class="blog-comments__avatar mr-3" style="cursor:pointer;">
+                                    <a href="@Url.Action("Download", "Home",new { FileID = item.ProjectId })">
+                                        <img src="~/AppFiles/Images/File-512.png" />
+                                    </a>
+                                </div>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </td>
+                            <td>
+                                @if (item.status == true)
+                                {
+                                    <label>Completed</label>
+                                }
+                                else if (item.status == false)
+                                {
+                                    <label>Not Approved</label>
+                                }
+                                else
+                                {
+                                    <label>Pending</label>
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <div class="card-footer border-top">
+                <div class="row">
+                    <div class="col text-center view-report">
+                        @*<button type="submit" class="btn btn-white">View All Projects</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Users By Device Stats -->
+    <!-- New Draft Component -->
+    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+        <!-- Quick Post -->
+        @using (Html.BeginForm("CreateProject", "Home", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPost(this);" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="card card-small">
+                <div class="card-header border-bottom">
+                    <h6 class="m-0">New Project</h6>
+                </div>
+                <div class="card-body d-flex flex-column">
+
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.CreateNewProject.ProjectTitle, new { htmlAttributes = new { @class = "form-control", @placeholder = "Project Title" , @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.CreateNewProject.ProjectTitle, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        
+                        @Html.DropDownList("CreateNewProject.UserId", (IEnumerable<SelectListItem>)ViewData["Users"], "-- Select Manager --", new { @class = "form-control", @placeholder = "Your Faculty Name", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.CreateNewProject.UserId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.CreateNewProject.DueDate, new { htmlAttributes = new { @class = "form-control", @placeholder = "Due Date", @required = "required" , @type = "date" } })
+                        @Html.ValidationMessageFor(model => model.CreateNewProject.DueDate, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <input class="btn-choose" type="file" accept=".pdf" name="CreateNewProject.fileUpload" required />
+                        @Html.ValidationMessageFor(model => model.CreateNewProject.FilePath, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <textarea name="CreateNewProject.Description" class="form-control" rows="5" placeholder="Describe your project here" required = "required"></textarea>
+                     </div>
+
+                    <div class="form-group mb-0">
+                        <input type="submit" value="Create Project" class="btn btn-accent" />
+                    </div>
+
+                </div>
+            </div>
+        }
+
+        <!-- End Quick Post -->
+    </div>
+    <!-- End New Draft Component -->
+    <!-- Discussions Component -->
+    <div class="col-lg-5 col-md-12 col-sm-12 mb-4">
+        <div class="card card-small blog-comments" style="min-height:600px">
+            <div class="card-header border-bottom">
+                <h6 class="m-0">Discussions</h6>
+            </div>
+
+            <div class="card-body p-0">
+                @foreach (var item in Model.commentModel)
+                {
+                <div class="blog-comments__item d-flex p-3">
+                    <div class="blog-comments__avatar mr-3">
+                        <img src="@Url.Content(item.ImagePath)" alt="User avatar" />
+                    </div>
+                    <div class="blog-comments__content">
+                        <div class="blog-comments__meta text-muted">
+                            <a class="text-secondary" href="#">@Html.DisplayFor(modelItem => item.UserName)</a> Role
+                            <a class="text-secondary" href="#">@Html.DisplayFor(modelItem => item.Account)</a>
+                            @*<span class="text-muted">– 3 days ago</span>*@
+                        </div>
+                        <p class="m-0 my-1 mb-2 text-muted">@Html.DisplayFor(modelItem => item.CommentContent)</p>
+                        <div class="blog-comments__actions">
+                            <div class="btn-group btn-group-sm">
+                                <button onclick="return BLockComment(@item.CommentId)" type="button" class="btn btn-white">
+                                    <span class="text-danger">
+                                        <i class="material-icons">clear</i>
+                                    </span> Block
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+            <div class="card-footer border-top">
+                <div class="row">
+                    <div class="col text-center view-report">
+                        @*<button type="submit" class="btn btn-white">View All Comments</button>*@
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- End Discussions Component -->
+    <!-- Top Referrals Component -->
+    <div class="col-lg-3 col-md-12 col-sm-12 mb-4">
+        <div class="card card-small">
+            <div class="card-header border-bottom">
+                <h6 class="m-0">Tasks Detail</h6>
+            </div>
+            <div class="card-body p-0">
+                <table class="list-group list-group-small list-group-flush">
+                    <tr class="list-group-item d-flex px-3">
+
+                        <th class="text-semibold text-fiord-blue">
+                            <label>Task Title</label>
+                        </th>
+                        <th class="ml-auto text-right text-semibold text-reagent-gray" >
+                            <label>Developer</label>
+                        </th>
+                      
+                    </tr>
+                    @foreach (var item in Model.projectTaskModel)
+                    {
+                        <tr class="list-group-item d-flex px-3">
+
+                            <td class="text-semibold text-fiord-blue">
+                                @Html.DisplayFor(modelItem => item.TaskTitle)
+                            </td>
+                            <td class="ml-auto text-right text-semibold text-reagent-gray" >
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </td>
+                            
+                        </tr>
+                    }
+
+                </table>
+</div>
+            <div class="card-footer border-top">
+                <div class="row">
+                    <div class="col">
+                        @*<select class="custom-select custom-select-sm">
+                            <option selected>Last Week</option>
+                            <option value="1">Today</option>
+                            <option value="2">Last Month</option>
+                            <option value="3">Last Year</option>
+                        </select>*@
+                    </div>
+                    <div class="col text-right view-report">
+                        @*<a href="#">Full report &rarr;</a>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Top Referrals Component -->
+</div>

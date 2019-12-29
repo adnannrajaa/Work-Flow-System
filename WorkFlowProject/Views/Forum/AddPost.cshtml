@@ -1,0 +1,92 @@
+﻿@model WorkFlowProject.ViewModels.Forum.PostTopicViewModel
+@{
+    ViewBag.Title = "AddPost";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- / .main-navbar -->
+
+    <!-- Page Header -->
+    <div class="page-header row no-gutters py-4">
+        <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+            <span class="text-uppercase page-subtitle">Blog Posts</span>
+            <h3 class="page-title">Add New Post</h3>
+        </div>
+    </div>
+    <!-- End Page Header -->
+    <div class="row">
+
+        <div class="col-lg-9 col-md-12">
+            <!-- Add New Post Form -->
+            <div class="card card-small mb-3">
+                <div class="card-body">
+                    <form class="add-new-post">
+                       
+                        <label id="ShowErrorTopic"></label>
+                        @*<input Id="TopicId" class="form-control form-control-lg mb-3" type="text" placeholder="Your Post Title">*@
+                        @Html.DropDownList("TopicId", (IEnumerable<SelectListItem>)ViewData["Topics"], "-- Select Topic --", new { @class = "form-control form-control-lg mb-3" , @placeholder = "Your Post Topic" })
+                        
+                        <label>Post Content</label>
+                        <label id="ShowErrorContent"></label>
+                         <div id="editor-container" class="add-new-post__editor mb-1" name="PostContent"></div>
+                       
+                    </form>
+                </div>
+            </div>
+            <!-- / Add New Post Form -->
+        </div>
+
+
+        <div class="col-lg-3 col-md-12">
+            <!-- Post Overview -->
+            <div class='card card-small mb-3'>
+                <div class="card-header border-bottom">
+                    <h6 class="m-0">Topics</h6>
+                </div>
+                <div class='card-body p-0'>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item px-3 pb-2">
+                           @foreach (var item in Model.displayTopic)
+                            {
+                                <div class="custom-control custom-checkbox mb-1">
+                                    @Html.DisplayFor(modelItem => item.TopicName, new { htmlAttributes = new { @class = "custom-control-label" , @for = item.TopicId } })
+
+                                </div>
+                            }
+
+                        </li>
+                        <li class="list-group-item d-flex px-3">
+                            <div class="input-group">
+                                <input id="InputCatagoary" type="text" class="form-control" placeholder="New Topic" aria-label="Add new category" aria-describedby="basic-addon2" required>
+                                <div class="input-group-append">
+
+                                    <input type="submit" value="+" class="btn btn-white px-2 material-icons" onclick="return AddTopic('InputCatagoary');" />
+                                </div>
+
+                            </div>
+                            <br />
+                            
+
+                        </li>
+                        <label id="ShowError"></label>
+
+                        <li class="list-group-item d-flex px-3">
+                           
+                            <input type="submit" value="Publish" class="btn btn-accent" onclick="return AddPost('editor-container');" />
+
+                        </li>
+                    </ul>
+
+
+
+                </div>
+            </div>
+            <!-- / Post Overview -->
+        </div>
+    </div>
+
+
+
+
+

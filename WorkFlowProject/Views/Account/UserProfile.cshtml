@@ -1,0 +1,163 @@
+﻿@model WorkFlowProject.Models.Account.UserDetail
+    @{ 
+    ViewBag.Title = "User Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("UserProfile", "Account", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPost(this);" }))
+{
+    @Html.AntiForgeryToken()
+
+    if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show mb-0" role="alert" id="PasswordChangeSucess">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <i class="fa fa-check mx-2" ></i>
+            <strong>Success!</strong> @ViewBag.Message
+        </div>
+    }
+    <!-- Page Header -->
+    <div class="page-header row no-gutters py-4">
+        <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+            <span class="text-uppercase page-subtitle">Overview</span>
+            <h3 class="page-title">User Profile</h3>
+        </div>
+    </div>
+    <!-- End Page Header -->
+    <!-- Default Light Table -->
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card card-small mb-4 pt-3">
+               
+                <div class="card-header border-bottom text-center">
+                    <div class="mb-3 mx-auto">
+                        <img class="rounded-circle" src="@Url.Content(Model.ImagePath)" alt="User Avatar" width="110" id="imagePreview">
+                        <div class="p-image" style="cursor:pointer">
+                            <i class="fa fa-camera upload-button"></i>
+                            <input class="file-upload" name="ImageUpload" type="file" accept="image/*" onchange="ShowImagePreview(this, document.getElementById('imagePreview'))" />
+                        </div>
+                    </div>
+                    <h4 class="mb-0">@Model.FirstName</h4>
+                    @if (User.IsInRole("Principle"))
+                    {
+                        <span class="text-muted d-block mb-2">Administrator</span>
+                    }
+                    else if (User.IsInRole("HOD"))
+                    {
+                    <span class="text-muted d-block mb-2">Head of Department</span>
+                    }
+                    else
+                    {
+                        <span class="text-muted d-block mb-2">Faculty</span>
+
+                    }
+                </div>
+               
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item px-4">
+                       @using (Html.BeginForm("ChangePassword", "Account"))
+                       {
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input type="password" class="form-control" id="fePasswordNew" placeholder="New password">
+                                    <label id="ShowErrorNewPa"></label>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input type="password" class="form-control" id="fePasswordRepeat" placeholder="Repeat password">
+                                    <label id="ShowErrorRepeatPa"></label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="fePasswordOld" placeholder="Old password">
+                                <label id="oldpa"></label>
+                            </div>
+                            <div class="form-row">
+                                <input type="button" onclick="return ChangePassword('fePasswordNew', 'fePasswordRepeat', 'fePasswordOld');" class="btn btn-accent" value="Reset Password" id="PasswordChangeButton" />
+                            </div>
+
+                       }
+                        
+
+                    </li>
+                    <li class="list-group-item p-4">
+                        <strong class="text-muted d-block mb-2">Description</strong>
+                        <span>
+                            @Html.DisplayFor(model => model.About, new { htmlAttributes = new { @class = "form-control", @type = "textarea", @rows = "5" } })
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card card-small mb-4">
+                <div class="card-header border-bottom">
+                    <h6 class="m-0">Account Details</h6>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item p-3">
+                        <div class="row">
+                            <div class="col">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.UserDetailId)
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="feFirstName">First Name</label>
+                                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="feLastName">Last Name</label>
+                                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+
+
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="feEmailAddress">Email</label>
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="fePassword">Mobile</label>
+                                        @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="feInputAddress">Address</label>
+                                    @Html.EditorFor(model => model.UserAddress, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.UserAddress, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="feDescription">Description</label>
+                                        <textarea class="form-control" name="About" rows="5">@Model.About</textarea>
+                                        @Html.ValidationMessageFor(model => model.About, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                               
+                                    <input type="submit" value="Update Account" class="btn btn-accent" />
+                              
+
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- End Default Light Table -->
+}
+
+
+

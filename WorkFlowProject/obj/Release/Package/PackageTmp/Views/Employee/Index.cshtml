@@ -1,0 +1,303 @@
+﻿@model WorkFlowProject.ViewModels.Employee.EmployeeViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<!-- Page Header -->
+<div class="page-header row no-gutters py-4">
+    <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+        <span class="text-uppercase page-subtitle">Dashboard</span>
+        <h3 class="page-title">Overview</h3>
+    </div>
+</div>
+<!-- End Page Header -->
+<!-- Small Stats Blocks -->
+<div class="row">
+    <div class="col-lg col-md-6 col-sm-6 mb-4">
+        <div class="stats-small stats-small--1 card card-small">
+            <div class="card-body p-0 d-flex">
+                <div class="d-flex flex-column m-auto">
+                    <div class="stats-small__data text-center">
+                        <span class="stats-small__label text-uppercase">Posts</span>
+                        <h6 class="stats-small__value count my-3">@ViewBag.TotalPosts</h6>
+                    </div>
+                    @*<div class="stats-small__data">
+                            <span class="stats-small__percentage stats-small__percentage--increase">4.7%</span>
+                        </div>*@
+                </div>
+                <canvas height="120" class="blog-overview-stats-small-1"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg col-md-6 col-sm-6 mb-4">
+        <div class="stats-small stats-small--1 card card-small">
+            <div class="card-body p-0 d-flex">
+                <div class="d-flex flex-column m-auto">
+                    <div class="stats-small__data text-center">
+                        <span class="stats-small__label text-uppercase">Likes</span>
+                        <h6 class="stats-small__value count my-3">@ViewBag.TotalLikes</h6>
+                    </div>
+                    @*<div class="stats-small__data">
+                            <span class="stats-small__percentage stats-small__percentage--increase">12.4%</span>
+                        </div>*@
+                </div>
+                <canvas height="120" class="blog-overview-stats-small-2"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg col-md-4 col-sm-6 mb-4">
+        <div class="stats-small stats-small--1 card card-small">
+            <div class="card-body p-0 d-flex">
+                <div class="d-flex flex-column m-auto">
+                    <div class="stats-small__data text-center">
+                        <span class="stats-small__label text-uppercase">Comments</span>
+                        <h6 class="stats-small__value count my-3">@ViewBag.TotalComments</h6>
+                    </div>
+                    @*<div class="stats-small__data">
+                            <span class="stats-small__percentage stats-small__percentage--decrease">3.8%</span>
+                        </div>*@
+                </div>
+                <canvas height="120" class="blog-overview-stats-small-3"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg col-md-4 col-sm-6 mb-4">
+        <div class="stats-small stats-small--1 card card-small">
+            <div class="card-body p-0 d-flex">
+                <div class="d-flex flex-column m-auto">
+                    <div class="stats-small__data text-center">
+                        <span class="stats-small__label text-uppercase">Users</span>
+                        <h6 class="stats-small__value count my-3">@ViewBag.TotalUsers</h6>
+                    </div>
+                    @*<div class="stats-small__data">
+                            <span class="stats-small__percentage stats-small__percentage--increase">12.4%</span>
+                        </div>*@
+                </div>
+                <canvas height="120" class="blog-overview-stats-small-4"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg col-md-4 col-sm-12 mb-4">
+        <div class="stats-small stats-small--1 card card-small">
+            <div class="card-body p-0 d-flex">
+                <div class="d-flex flex-column m-auto">
+                    <div class="stats-small__data text-center">
+                        <span class="stats-small__label text-uppercase">Projects</span>
+                        <h6 class="stats-small__value count my-3">@ViewBag.TotalCompletedProjects</h6>
+                    </div>
+                    @*<div class="stats-small__data">
+                            <span class="stats-small__percentage stats-small__percentage--decrease">2.4%</span>
+                        </div>*@
+                </div>
+                <canvas height="120" class="blog-overview-stats-small-5"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Small Stats Blocks -->
+<div class="row">
+    @if (User.IsInRole("HOD"))
+    {
+           <!-- Users Stats -->
+        <div class="col-lg-8 col-md-12 col-sm-12 mb-4">
+            <div class="card card-small" style="min-height:500px;">
+                <div class="card-header border-bottom">
+                    <h6 class="m-0">Project Detail</h6>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="row border-bottom py-2 bg-light">
+                        <table class="table">
+                            <tr class="table-striped">
+                                <th><label>File</label></th>
+                                <th>
+                                    <label>Project Title</label>
+                                </th>
+                                <th>
+                                    <label>Due Date</label>
+                                </th>
+
+
+                                <th>
+                                    <label>Status</label>
+                                </th>
+
+                            </tr>
+
+                            @foreach (var item in Model.ProjectModel)
+                            {
+                                <tr>
+                                    <td>
+                                        <div title="Download" class="blog-comments__avatar mr-3" style="cursor:pointer;">
+                                            <a href="@Url.Action("Download", "Employee",new { FileID = item.ProjectId })">
+                                                <img src="~/AppFiles/Images/File-512.png" />
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProjectTitle)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DueDate)
+                                    </td>
+
+
+                                    <td>
+                                        @if (User.IsInRole("HOD") && item.Status != true)
+                                        {
+
+                                            <a href="@Url.Action("Completed", "Employee", new { id = item.ProjectId })">
+                                                Completed
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            if (item.Status != true)
+                                            {
+                                                <label>pending</label>
+                                            }
+                                            else
+                                            {
+                                                <label>Completed</label>
+                                            }
+                                        }
+
+                                    </td>
+
+                                </tr>
+                            }
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- New Draft Component -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <!-- Quick Post -->
+            @using (Html.BeginForm("CreateProject", "Employee", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPost(this);" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="card card-small">
+                    <div class="card-header border-bottom">
+                        <h6 class="m-0">New Task</h6>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+
+                        <div class="form-group">
+                            @Html.EditorFor(model => model.CreateNewProject.TaskTitle, new { htmlAttributes = new { @class = "form-control", @placeholder = "Task Title" , @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.CreateNewProject.TaskTitle, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.DropDownList("CreateNewProject.UserId", (IEnumerable<SelectListItem>)ViewData["Users"], "-- Select Developer --", new { @class = "form-control", @placeholder = "Your Faculty Name", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.CreateNewProject.UserId, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.DropDownList("CreateNewProject.ProjectId", (IEnumerable<SelectListItem>)ViewData["ProjectData"], "-- Select Project Title --", new { @class = "form-control", @placeholder = "Your Faculty Name", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.CreateNewProject.ProjectId, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.EditorFor(model => model.CreateNewProject.DueDate, new { htmlAttributes = new { @class = "form-control", @placeholder = "Due Date", @required = "required", @type = "date" } })
+                            @Html.ValidationMessageFor(model => model.CreateNewProject.DueDate, "", new { @class = "text-danger" })
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <textarea name="CreateNewProject.Description" class="form-control" rows="5" placeholder="Describe your project here" required = "required"></textarea>
+                        </div>
+
+                        <div class="form-group mb-0">
+                            <input type="submit" value="Create Project" class="btn btn-accent" />
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+            <!-- End Quick Post -->
+        </div>
+    <!-- End New Draft Component -->
+    }
+ 
+
+    <div class="col-lg-12 col-md-12 col-sm-12 mb-4" >
+        <div class="card card-small">
+            <div class="card-header border-bottom">
+                <h6 class="m-0">Task Detail</h6>
+            </div>
+            <div class="card-body pt-0">
+                <div class="row border-bottom py-2 bg-light">
+                    <table class="table">
+                        <tr class="table-striped">
+                            <th><label>Task Title</label></th>
+                            <th>
+                                <label>Project</label>
+                            </th>
+                            <th>
+                                <label>Due Date</label>
+                            </th>
+
+                            <th>
+                                <label>Description</label>
+                            </th>
+                            <th>
+                                <label>Status</label>
+                            </th>
+
+                        </tr>
+
+                        @foreach (var item in Model.projectTaskModel)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TaskTitle)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProjectTitle)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DueDate)
+                                </td>
+                                <td>
+                                     @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+
+                                <td>
+                                    @if (User.IsInRole("Staff") && item.Status != true)
+                                    {
+
+                                        <a href="@Url.Action("CompletedTask", "Employee", new { id = item.TaskId })">
+                                            Completed
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        if (item.Status != true)
+                                        {
+                                            <label>pending</label>
+                                        }
+                                        else
+                                        {
+                                            <label>Completed</label>
+                                        }
+                                    }
+                                </td>
+
+                            </tr>
+                        }
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+
+    
+</div>
+
+

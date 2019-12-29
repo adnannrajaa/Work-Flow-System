@@ -1,0 +1,56 @@
+﻿@model WorkFlowProject.Models.DataBaseModel.Meeting
+
+@{
+    ViewBag.Title = "CreateMeeting";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="MessageSucess"></div>
+
+<div class="page-header row no-gutters py-4">
+    <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+        <span class="text-uppercase page-subtitle">Events</span>
+        <h3 class="page-title">Create New Meeting</h3>
+    </div>
+</div>
+<!-- End Page Header -->
+
+
+<div class="row">
+
+    <div class="col-lg-12 col-md-12">
+        <!-- Add New Post Form -->
+        <div class="card card-small mb-3">
+            <div class="card-body col-md-10">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <label id="ShowErrorTopic"></label>
+                @Html.DropDownList("TopicId", (IEnumerable<SelectListItem>)ViewData["Topics"], "-- Select Topic --", new { @class = "form-control form-control-lg mb-3 ", @placeholder = "Your Post Topic", @required = "required"})
+                @Html.ValidationMessageFor(model => model.TopicId, "", new { @class = "text-danger" })
+                
+                <label id="ShowErrorUser"></label>
+                @Html.DropDownList("UserId", (IEnumerable<SelectListItem>)ViewData["Users"], "-- Select Faculty --", new { @class = "form-control form-control-lg mb-3 ", @placeholder = "Your Faculty Name", @required = "required"})
+                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+
+                <label id="ShowErrorTime"></label>
+                <input id="MeetingTime" placeholder="Meeting Time" type="time"   required/>
+                @Html.ValidationMessageFor(model => model.MeetingTime, "", new { @class = "text-danger" })
+
+                <label style="margin-top:20px;">Meeting Points</label><label id="ShowErrorPoints"></label>
+                <div id="editor-container" style="min-height:300px;" name="MeetingPoints"></div>
+                @Html.ValidationMessageFor(model => model.MeetingPoints, "", new { @class = "text-danger" })
+
+
+                <input type="submit" value="Submit" class="btn btn-accent " style="float:right;" onclick="return AddMeeting('editor-container');" />
+            </div>
+        </div>
+        <!-- / Add New Post Form -->
+
+    </div>
+</div>
+
+
+
+
+
+

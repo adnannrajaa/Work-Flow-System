@@ -1,0 +1,120 @@
+﻿@model IEnumerable<WorkFlowProject.ViewModels.Forum.ShowPostViewModel>
+@{
+    ViewBag.Title = "ViewPost";
+    Layout = "~/Views/Shared/ViewPostLayout.cshtml";
+}
+
+
+
+
+<!-- Page Header -->
+<div class="page-header row no-gutters py-4 mb-3 border-bottom">
+    <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+        <span class="text-uppercase page-subtitle">Overview</span>
+        <h3 class="page-title">Forms & Components</h3>
+    </div>
+</div>
+<div id="xyz">aaaa</div>
+<!-- End Page Header -->
+@foreach (var item in Model)
+{
+    <div class="question-card card mb-4">
+        <!-- Card header -->
+        <div class="card-header forum-card-img-30 d-flex justify-content-between">
+            <p class="pt-2 mb-0">
+                <img src="@Url.Content(item.ImagePath)"
+                     alt="" class="rounded-circle mr-2">
+                <strong>
+                    <a href="">@Html.DisplayFor(modelItem => item.FirstName)</a>
+                </strong>
+                @if (item.Account == "Principle")
+                {
+                <span class="badge blue mx-1">principle</span>
+                }
+                else if (item.Account == "Staff")
+                {
+                <span class="badge purple mx-1">staff</span>
+                }
+                else if (item.Account == "HOD")
+                {
+                <span class="badge green mx-1">HOD</span>
+                }
+            </p>
+
+            <!-- Like Dislike Div Start -->
+            <div>
+                <a href="#" type="button" onclick="return PostLike(@item.Post.PostId);"
+                   class="btn btn-outline-dark-green btn-sm px-2 waves-effect vote-button upvote-button"
+                   data-action="upvote">
+                    <span id="@("like"+item.Post.PostId)" class="value">@item.Post.PostLikes.Where(s=>s.PostLike1==true).Count()</span>
+                    <i class="far fa-thumbs-up ml-1"></i>
+                </a>
+                <a href="#57029" type="submit" onclick="return PostDisLike(@item.Post.PostId);"
+                   class="btn btn-outline-danger btn-sm px-2 waves-effect vote-button downvote-button"
+                   data-action="downvote">
+                    <span id="@("dislike"+item.Post.PostId)" class="value">@item.Post.PostLikes.Where(s => s.PostLike1 == false).Count()</span>
+                    <i class="far fa-thumbs-down ml-1"></i>
+                </a>
+            </div>
+            <!-- Like Dislike Div End -->
+        </div>
+        <!--Card content-->
+        <div class="card-body">
+            @Html.DisplayFor(modelItem => item.Post.PostContent)
+            <hr>
+            <!-- Comments -->
+            <div class="comment-card ml-5"  id="@("Comment"+item.Post.PostId)">
+                <!-- Single comment -->
+                @foreach (var itemCom in item.Post.PostComments)
+                {
+                     <small class="comment-item text-muted" id="AddMyComment">
+                            <p class="mb-2">
+                               <strong>
+                                    <a href=""> @Html.DisplayFor(modelItem => itemCom.UserFullName)
+                                   
+                                   </a>
+                                </strong>
+
+                            </p>
+                            <p id="mycomment">@Html.DisplayFor(modelItem => itemCom.CommentContent)</p>
+                        </small>
+                            <hr>
+                       
+                    }
+
+
+               
+            </div>
+            <div class="comment-card ml-5 form-group mb-0">
+                <form method="post" class="needs-validation" novalidate>
+                    <input type="hidden" name="post_id" value="57029" />
+                    <input type="hidden" name="action" value="add-comment" />
+                    <a href="#" class="btn btn-info btn-sm ml-0 comment-form-toggle" onclick="ShowElements()">Add comment</a>
+                    <button onclick="return AddComment(@item.Post.PostId);" type="button"
+                            class="btn btn-info btn-sm comment-form-item is-hidden" id="hidebutton">
+                        Publish
+                    </button>
+                    <div class="comment-form-item is-hidden" id="HideBox">
+                        <div class="wp-editor-container">
+                            <div class="wmd-panel">
+                                <div id="wmd-button-bar_comment" class="is-hidden"></div>
+                                <textarea class="wmd-input" rows="5" id="@item.Post.PostId" name="Description"></textarea>
+                            </div>
+                            <div id="wmd-preview_comment" class="wmd-panel wmd-preview is-hidden">
+                            </div><textarea name="comment" id="wmd-form-editor-hidden_comment"
+                                            hidden></textarea>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <!-- Comments -->
+
+
+        </div>
+    </div>
+
+
+}
+
+<!--Card: Main question-->
